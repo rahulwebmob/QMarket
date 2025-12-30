@@ -284,10 +284,10 @@ export default function DivideFold() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          The divide is no longer access.
+          The divide is no longer information.
           <br />
           <span className="bg-gradient-to-r from-cyan-400 to-cyan-300 bg-clip-text text-transparent">
-            It's coherence.
+            It's intelligence.
           </span>
         </h2>
 
@@ -333,16 +333,16 @@ export default function DivideFold() {
           <div className="space-y-8">
             {[
               {
-                title: 'The fragmentation problem',
-                text: 'Modern markets generate signals across hundreds of venues, jurisdictions, and asset classes. Access is no longer the constraint — the challenge is making sense of it all.',
+                title: 'The information overload',
+                text: 'Markets move fast. News, charts, signals — everywhere you look. Most traders drown in data while missing the moves that matter.',
               },
               {
-                title: 'Noise versus signal',
-                text: 'Institutional teams spend more time reconciling conflicting data than extracting insight. Disconnected feeds create blind spots. Unverified sources introduce risk.',
+                title: 'Guessing vs. knowing',
+                text: 'Traditional trading relies on gut feelings and outdated analysis. Hours spent researching, still uncertain. The market doesn\'t wait for you to catch up.',
               },
               {
-                title: 'The coherence advantage',
-                text: 'Quasar unifies fragmented streams into a single, verified surface. Not more data — better data. Aligned, contextualized, and auditable.',
+                title: 'The AI advantage',
+                text: 'Quasar Markets cuts through the noise with AI-powered intelligence. Real-time insights, pattern recognition, and actionable signals — so you can spot the move and act fast.',
               },
             ].map((item, i) => (
               <div
@@ -436,10 +436,10 @@ export default function DivideFold() {
         {/* Bottom stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-slate-800/30">
           {[
-            { value: '200+', label: 'Data Sources Normalized' },
-            { value: '< 50ms', label: 'Reconciliation Latency' },
-            { value: '99.97%', label: 'Signal Verification Rate' },
-            { value: '24/7', label: 'Continuous Monitoring' },
+            { value: '10K+', label: 'Active Traders' },
+            { value: 'Real-Time', label: 'Market Data' },
+            { value: '95%', label: 'Signal Accuracy' },
+            { value: '24/7', label: 'AI Analysis' },
           ].map((stat, i) => (
             <div
               key={i}

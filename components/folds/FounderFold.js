@@ -34,7 +34,7 @@ export default function FounderFold() {
 
   const narrativeLines = [
     'Markets do not need more opinions. They need better infrastructure for understanding what is actually happening.',
-    'Quasar exists to provide that foundation — a layer of verified, coherent intelligence that institutions can trust.',
+    'Quasar Markets exists to provide that foundation — a layer of verified, coherent intelligence that institutions can trust.',
     'We are not building tools for speculation or prediction. We are building the plumbing that allows responsible actors to make informed decisions based on facts, not noise.',
     'This is infrastructure for those who understand that clarity is not a luxury — it is a responsibility.',
   ];

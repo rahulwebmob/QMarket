@@ -101,7 +101,7 @@ export default function FinalCTAFold() {
             }`}
           >
             <div className="w-12 h-px bg-gradient-to-r from-transparent to-cyan-400/50" />
-            <span className="text-cyan-400/70 text-sm font-mono tracking-wider">09 / ACCESS</span>
+            <span className="text-cyan-400/70 text-sm font-mono tracking-wider">09 / GET STARTED</span>
             <div className="w-12 h-px bg-gradient-to-l from-transparent to-cyan-400/50" />
           </div>
 
@@ -112,12 +112,12 @@ export default function FinalCTAFold() {
             }`}
           >
             <p className="text-xl md:text-2xl lg:text-3xl font-light text-slate-400 leading-relaxed mb-4">
-              If you are responsible for decisions that allocate capital,
+              Ready to stop guessing
               <br className="hidden md:block" />
-              manage risk, or support policy —
+              and start investing with confidence?
             </p>
             <p className="text-xl md:text-2xl lg:text-3xl font-light text-white">
-              clarity is not optional.
+              Your free trial is waiting.
             </p>
           </div>
 
@@ -147,13 +147,13 @@ export default function FinalCTAFold() {
               <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-cyan-400/80 transition-all duration-500 group-hover:w-4 group-hover:h-4" />
 
               <span className="relative z-10 text-cyan-400 font-medium tracking-wide transition-all duration-300 group-hover:text-cyan-300">
-                Request Institutional Access
+                Start Your 7-Day Free Trial
               </span>
             </button>
 
             {/* Secondary CTA */}
             <button className="group px-10 py-5 text-slate-500 font-medium border border-slate-800 transition-all duration-500 hover:text-slate-300 hover:border-slate-600 hover:bg-slate-800/20">
-              <span className="tracking-wide">Contact Quasar Markets</span>
+              <span className="tracking-wide">Schedule a Demo</span>
             </button>
           </div>
 
@@ -173,7 +173,7 @@ export default function FinalCTAFold() {
               isVisible ? 'opacity-100' : 'opacity-0'
             }`}
           >
-            Infrastructure for those who understand that clarity is a responsibility.
+            Invest smarter, not harder. Join thousands of traders on Quasar Markets.
           </p>
         </div>
       </section>

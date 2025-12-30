@@ -4,33 +4,33 @@ import { useEffect, useRef, useState } from 'react';
 
 const stages = [
   {
-    id: 'ingest',
-    title: 'Ingest',
-    description: 'Raw market data streams from primary sources, exchanges, and regulatory feeds enter the pipeline.',
+    id: 'scan',
+    title: 'Scan',
+    description: 'Our AI continuously monitors thousands of stocks, ETFs, and market signals in real-time.',
     icon: '01',
   },
   {
-    id: 'normalize',
-    title: 'Normalize',
-    description: 'Heterogeneous formats are standardized into a unified schema. Timestamps aligned. Units reconciled.',
+    id: 'analyze',
+    title: 'Analyze',
+    description: 'Advanced algorithms identify patterns, trends, and opportunities across multiple timeframes.',
     icon: '02',
   },
   {
-    id: 'verify',
-    title: 'Verify',
-    description: 'Cross-reference validation against authoritative sources. Anomalies flagged. Provenance recorded.',
+    id: 'predict',
+    title: 'Predict',
+    description: 'Machine learning models forecast potential price movements and market scenarios.',
     icon: '03',
   },
   {
-    id: 'contextualize',
-    title: 'Contextualize',
-    description: 'Signals enriched with historical patterns, regulatory context, and cross-market correlations.',
+    id: 'alert',
+    title: 'Alert',
+    description: 'Get notified instantly when AI detects actionable opportunities matching your criteria.',
     icon: '04',
   },
   {
-    id: 'deliver',
-    title: 'Deliver',
-    description: 'Coherent intelligence surfaces through APIs, dashboards, and integration layers — ready for decision.',
+    id: 'execute',
+    title: 'Execute',
+    description: 'Act on insights with confidence. All the intelligence you need to make informed decisions.',
     icon: '05',
   },
 ];
@@ -219,7 +219,7 @@ export default function ClarityEngineFold() {
           >
             <span className="text-cyan-400 text-sm font-mono">03</span>
             <div className="w-12 h-px bg-gradient-to-r from-cyan-400/50 to-transparent" />
-            <span className="text-slate-500 text-sm uppercase tracking-wider">The Clarity Engine</span>
+            <span className="text-slate-500 text-sm uppercase tracking-wider">The AI Engine</span>
           </div>
 
           <h2
@@ -227,9 +227,9 @@ export default function ClarityEngineFold() {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            From noise to{' '}
+            How Quasar Markets{' '}
             <span className="font-medium bg-gradient-to-r from-cyan-300 to-teal-400 bg-clip-text text-transparent">
-              clarity
+              works
             </span>
           </h2>
 
@@ -238,8 +238,8 @@ export default function ClarityEngineFold() {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            A systematic approach to transforming fragmented market signals
-            into institutional-grade intelligence.
+            Our AI-powered engine processes millions of data points to deliver
+            actionable insights in real-time.
           </p>
         </div>
 
@@ -316,20 +316,20 @@ export default function ClarityEngineFold() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          <h3 className="text-lg text-white mb-8 font-medium">What Quasar is not</h3>
+          <h3 className="text-lg text-white mb-8 font-medium">Why traders choose Quasar Markets</h3>
           <div className="grid md:grid-cols-3 gap-8">
             {[
               {
-                title: 'No ideology',
-                text: 'We do not impose directional views. Quasar surfaces facts, not forecasts.',
+                title: 'Instant insights',
+                text: 'No more hours of research. Get AI-powered analysis in seconds, not days.',
               },
               {
-                title: 'No prediction hype',
-                text: 'We do not claim to predict markets. We provide clarity on what has happened and what is verifiable.',
+                title: 'Beginner friendly',
+                text: 'Ask questions in plain English. Our AI explains complex market dynamics simply.',
               },
               {
-                title: 'No black boxes',
-                text: 'Every output can be traced to its source. Every transformation is documented and auditable.',
+                title: 'Always learning',
+                text: 'Our models continuously improve, adapting to market conditions and your trading style.',
               },
             ].map((item, i) => (
               <div key={i} className="group">

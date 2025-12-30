@@ -4,35 +4,35 @@ import { useEffect, useRef, useState } from 'react';
 
 const dataSources = [
   {
-    category: 'Primary Markets',
-    items: ['Exchange feeds', 'Order books', 'Trade executions', 'Settlement data'],
+    category: 'Stocks & ETFs',
+    items: ['NYSE', 'NASDAQ', 'S&P 500', 'Russell 2000', 'Global Markets'],
   },
   {
-    category: 'Regulatory',
-    items: ['SEC filings', 'Central bank publications', 'Compliance disclosures', 'Enforcement actions'],
+    category: 'Market Data',
+    items: ['Real-time quotes', 'Historical data', 'After-hours trading', 'Pre-market analysis'],
   },
   {
-    category: 'Reference Data',
-    items: ['Corporate actions', 'Instrument master', 'Entity relationships', 'Taxonomy mappings'],
+    category: 'News & Events',
+    items: ['Earnings reports', 'SEC filings', 'Market news', 'Economic indicators'],
   },
 ];
 
 const verificationLayers = [
   {
-    layer: 'Source Authentication',
-    description: 'Cryptographic verification of data origin and transmission integrity',
+    layer: 'Real-Time Charts',
+    description: 'Interactive charts with multiple timeframes and technical indicators',
   },
   {
-    layer: 'Cross-Reference Validation',
-    description: 'Multi-source confirmation with conflict resolution protocols',
+    layer: 'AI Analysis',
+    description: 'Pattern recognition and trend analysis powered by machine learning',
   },
   {
-    layer: 'Temporal Consistency',
-    description: 'Timestamp verification and sequence integrity checks',
+    layer: 'Custom Alerts',
+    description: 'Set price alerts and get notified when opportunities arise',
   },
   {
-    layer: 'Audit Trail',
-    description: 'Immutable record of all transformations and enrichments',
+    layer: 'Watchlists',
+    description: 'Track your favorite stocks with personalized watchlists',
   },
 ];
 
@@ -131,8 +131,8 @@ function DataFlowVisual({ isVisible }) {
       </div>
 
       {/* Incoming data streams - left side */}
-      <div className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 flex flex-col gap-5">
-        {['Sources', 'Feeds', 'APIs'].map((label, i) => (
+      <div className="absolute left-6 md:left-12 top-1/2 -translate-y-1/2 flex flex-col gap-8">
+        {['Markets', 'News', 'Signals'].map((label, i) => (
           <div
             key={label}
             className={`flex items-center gap-3 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-8'}`}
@@ -150,8 +150,8 @@ function DataFlowVisual({ isVisible }) {
       </div>
 
       {/* Outgoing verified data - right side */}
-      <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-5">
-        {['Verified', 'Enriched', 'Delivered'].map((label, i) => (
+      <div className="absolute right-6 md:right-12 top-1/2 -translate-y-1/2 flex flex-col gap-8">
+        {['Insights', 'Alerts', 'Actions'].map((label, i) => (
           <div
             key={label}
             className={`flex items-center gap-3 transition-all duration-700 ${isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 translate-x-8'}`}
@@ -256,9 +256,9 @@ export default function SourceFold() {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Data origin{' '}
+            Comprehensive market{' '}
             <span className="font-medium bg-gradient-to-r from-cyan-300 to-teal-400 bg-clip-text text-transparent">
-              matters
+              coverage
             </span>
           </h2>
 
@@ -267,7 +267,7 @@ export default function SourceFold() {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Verification is non-negotiable. Every signal traced to its source.
+            Access real-time data from major exchanges. All the tools you need in one place.
           </p>
         </div>
 
@@ -294,7 +294,7 @@ export default function SourceFold() {
                   <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
                 </svg>
               </span>
-              Data Sources
+              Market Coverage
             </h3>
 
             <div className="space-y-6">
@@ -337,7 +337,7 @@ export default function SourceFold() {
                   <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
                 </svg>
               </span>
-              Verification Stack
+              Analysis Tools
             </h3>
 
             <div className="space-y-3">
@@ -373,8 +373,8 @@ export default function SourceFold() {
           }`}
         >
           <p className="text-2xl md:text-3xl text-white font-light">
-            Every signal traced.{' '}
-            <span className="text-cyan-400">Every conclusion audited.</span>
+            All the data.{' '}
+            <span className="text-cyan-400">All the insights. One platform.</span>
           </p>
         </div>
       </div>

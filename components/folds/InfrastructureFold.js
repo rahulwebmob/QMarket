@@ -4,33 +4,33 @@ import { useEffect, useRef, useState } from 'react';
 
 const capabilities = [
   {
-    title: 'Real-Time Stream Processing',
-    description: 'Sub-millisecond ingestion and normalization across global market feeds.',
-    metrics: ['< 1ms latency', '10M+ events/sec', '99.999% uptime'],
+    title: 'AI-Powered Research',
+    description: 'Ask questions in plain English and get instant, intelligent answers about any stock or market.',
+    metrics: ['Natural language', 'Instant answers', 'Context-aware'],
   },
   {
-    title: 'Historical Context Layers',
-    description: 'Deep temporal archives with point-in-time reconstruction.',
-    metrics: ['20+ years depth', 'Tick-level', 'Point-in-time'],
+    title: 'Real-Time Analytics',
+    description: 'Live market data, charts, and technical indicators that update in real-time.',
+    metrics: ['Live quotes', 'Technical indicators', 'Multi-timeframe'],
   },
   {
-    title: 'Modular Intelligence Components',
-    description: 'Composable building blocks for custom analytical workflows.',
-    metrics: ['50+ modules', 'API-first', 'Custom integrations'],
+    title: 'Multi-Device Access',
+    description: 'Seamless experience across desktop, tablet, and mobile. Your data syncs everywhere.',
+    metrics: ['Desktop app', 'Mobile app', 'Cloud sync'],
   },
   {
-    title: 'Sovereign-Grade Security',
-    description: 'Multi-layered security posture meeting stringent requirements.',
-    metrics: ['SOC 2 Type II', 'E2E encryption', 'Geo-redundancy'],
+    title: 'Learning Platform',
+    description: 'Access courses, webinars, and educational content to level up your trading skills.',
+    metrics: ['Video courses', 'Live webinars', 'Expert instructors'],
   },
 ];
 
 const layers = [
-  { name: 'Application Layer', color: 'from-cyan-400/20 to-cyan-400/5' },
-  { name: 'Intelligence Layer', color: 'from-teal-400/20 to-teal-400/5' },
-  { name: 'Processing Layer', color: 'from-emerald-400/20 to-emerald-400/5' },
-  { name: 'Data Layer', color: 'from-cyan-400/20 to-cyan-400/5' },
-  { name: 'Infrastructure Layer', color: 'from-slate-400/20 to-slate-400/5' },
+  { name: 'User Interface', color: 'from-cyan-400/20 to-cyan-400/5' },
+  { name: 'AI Engine', color: 'from-teal-400/20 to-teal-400/5' },
+  { name: 'Analytics', color: 'from-emerald-400/20 to-emerald-400/5' },
+  { name: 'Market Data', color: 'from-cyan-400/20 to-cyan-400/5' },
+  { name: 'Cloud Platform', color: 'from-slate-400/20 to-slate-400/5' },
 ];
 
 // 3D Layered stack diagram
@@ -234,7 +234,7 @@ export default function InfrastructureFold() {
           >
             <span className="text-cyan-400 text-sm font-mono">05</span>
             <div className="w-12 h-px bg-gradient-to-r from-cyan-400/50 to-transparent" />
-            <span className="text-slate-500 text-sm uppercase tracking-wider">Infrastructure</span>
+            <span className="text-slate-500 text-sm uppercase tracking-wider">Platform</span>
           </div>
 
           <h2
@@ -242,9 +242,9 @@ export default function InfrastructureFold() {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Built for{' '}
+            Everything you need to{' '}
             <span className="font-medium bg-gradient-to-r from-cyan-300 to-teal-400 bg-clip-text text-transparent">
-              institutional scale
+              trade smarter
             </span>
           </h2>
 
@@ -253,7 +253,7 @@ export default function InfrastructureFold() {
               isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
             }`}
           >
-            Infrastructure, not application. A layer that institutions build upon.
+            A complete platform for traders at every level. Research, analyze, learn, and execute.
           </p>
         </div>
 
@@ -283,9 +283,9 @@ export default function InfrastructureFold() {
           }`}
         >
           {[
-            { value: '99.999%', label: 'Uptime SLA' },
-            { value: '< 1ms', label: 'P99 Latency' },
-            { value: '10M+', label: 'Events/Second' },
+            { value: '50+', label: 'Video Courses' },
+            { value: '100+', label: 'Expert Webinars' },
+            { value: '24/7', label: 'Platform Access' },
           ].map((stat, i) => (
             <div key={i} className="text-center">
               <div className="text-2xl md:text-3xl font-light text-white mb-1">{stat.value}</div>

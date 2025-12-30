@@ -4,40 +4,40 @@ import { useEffect, useRef, useState } from 'react';
 
 const roles = [
   {
-    title: 'Risk Teams',
-    description: 'Real-time exposure monitoring across portfolios. Anomaly detection that surfaces what matters before it becomes critical.',
-    useCase: 'Unified risk surface across asset classes and geographies',
+    title: 'Beginner Traders',
+    description: 'Learn the fundamentals with AI guidance. Ask questions, get explanations, and build confidence before you invest.',
+    useCase: 'Educational resources and guided learning paths',
   },
   {
-    title: 'Research Groups',
-    description: 'Deep historical context for hypothesis validation. Cross-market correlations without data reconciliation overhead.',
-    useCase: 'Primary source access with verification metadata',
+    title: 'Active Traders',
+    description: 'Real-time signals and AI-powered research to identify opportunities faster. Stay ahead of the market.',
+    useCase: 'Advanced analytics and custom alerts',
   },
   {
-    title: 'Portfolio Managers',
-    description: 'Coherent market view without information asymmetry. Decision-grade intelligence at the speed of markets.',
-    useCase: 'Actionable signals with full provenance trail',
+    title: 'Long-Term Investors',
+    description: 'Deep fundamental analysis and portfolio insights. Make informed decisions for your financial future.',
+    useCase: 'Portfolio tracking and performance analytics',
   },
   {
-    title: 'Compliance Teams',
-    description: 'Audit-ready data lineage for regulatory requirements. Complete transaction reconstruction capabilities.',
-    useCase: 'Immutable records with temporal query support',
+    title: 'Educators',
+    description: 'Create and share courses, host webinars, and build your following. Monetize your trading expertise.',
+    useCase: 'Content creation tools and community features',
   },
   {
-    title: 'Supervisors',
-    description: 'Cross-institutional visibility into systemic patterns. Early warning indicators grounded in verified data.',
-    useCase: 'Macro-level intelligence with drill-down capability',
+    title: 'Students',
+    description: 'Access world-class trading education from proven experts. Learn strategies that work in real markets.',
+    useCase: 'On-demand courses and live learning sessions',
   },
   {
-    title: 'Policy Analysts',
-    description: 'Evidence-based market intelligence for policy formation. Historical precedent analysis with context preservation.',
-    useCase: 'Long-term trend analysis with regulatory context',
+    title: 'Community Members',
+    description: 'Connect with like-minded traders. Share ideas, discuss strategies, and grow together.',
+    useCase: 'Discussion forums and social trading features',
   },
 ];
 
-// Institutional logos (placeholder representations)
-const institutionalLogos = [
-  'BLOOMBERG', 'REFINITIV', 'FACTSET', 'MSCI', 'S&P', 'MORNINGSTAR', 'ICE', 'LSE'
+// Awards and recognition
+const awards = [
+  'Best AI Research Platform 2024', 'Fintech Startup of the Year', 'AI Startup of the Year', 'NASDAQ Compliant', 'OPRA Licensed'
 ];
 
 // Marquee component for logos
@@ -51,14 +51,14 @@ function LogoMarquee({ isVisible }) {
         className={`flex gap-16 transition-opacity duration-1000 ${isVisible ? 'animate-marquee' : 'opacity-0'}`}
         style={{ width: 'max-content' }}
       >
-        {/* Double the logos for seamless loop */}
-        {[...institutionalLogos, ...institutionalLogos].map((logo, i) => (
+        {/* Double the awards for seamless loop */}
+        {[...awards, ...awards].map((award, i) => (
           <div
             key={i}
             className="group flex items-center justify-center px-8 py-4 transition-all duration-500"
           >
-            <span className="text-slate-700 text-sm font-mono tracking-widest group-hover:text-slate-400 transition-colors duration-500">
-              {logo}
+            <span className="text-slate-700 text-sm font-mono tracking-widest group-hover:text-cyan-400 transition-colors duration-500">
+              {award}
             </span>
           </div>
         ))}
@@ -161,7 +161,7 @@ export default function ValidationFold() {
           }`}
         >
           <div className="w-8 h-px bg-cyan-400/50" />
-          <span className="text-cyan-400/70 text-sm font-mono tracking-wider">06 / INSTITUTIONAL VALIDATION</span>
+          <span className="text-cyan-400/70 text-sm font-mono tracking-wider">06 / WHO IT'S FOR</span>
         </div>
 
         {/* Title */}
@@ -170,9 +170,9 @@ export default function ValidationFold() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          Built for those who bear
+          Learn. Trade.
           <br />
-          <span className="text-slate-500">institutional responsibility.</span>
+          <span className="text-slate-500">Empower.</span>
         </h2>
 
         <p
@@ -180,8 +180,8 @@ export default function ValidationFold() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          Quasar serves teams where clarity is not a preference but a requirement.
-          Each role benefits differently, but all share the same foundation of verified intelligence.
+          Whether you're just starting or you're a seasoned pro, Quasar Markets has the tools
+          and community to help you succeed.
         </p>
 
         {/* Logo marquee */}
@@ -207,10 +207,10 @@ export default function ValidationFold() {
           }`}
         >
           <p className="text-slate-600">
-            Quasar provides <span className="text-slate-400">clarity</span>, not features.
+            Join thousands of traders who are investing <span className="text-cyan-400">smarter, not harder</span>.
           </p>
           <p className="text-slate-700 text-sm mt-2">
-            The value is in what teams can do with verified, coherent intelligence.
+            Start your free trial today and see the difference AI makes.
           </p>
         </div>
       </div>

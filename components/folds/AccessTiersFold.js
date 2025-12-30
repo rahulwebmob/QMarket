@@ -4,40 +4,40 @@ import { useEffect, useRef, useState } from 'react';
 
 const tiers = [
   {
-    name: 'Research',
-    audience: 'Academic institutions, policy researchers',
-    description: 'Historical data access with verification metadata. Suitable for long-term analysis and research publications.',
+    name: 'Free',
+    audience: 'New traders exploring the platform',
+    description: 'Get started with basic features. Perfect for learning and trying out the platform risk-free.',
     features: [
-      'Historical archives',
-      'Verification metadata',
-      'Standard API access',
-      'Documentation & support',
+      '7-day full access trial',
+      'Basic market data',
+      'Limited AI queries',
+      'Community access',
     ],
     highlight: false,
   },
   {
-    name: 'Institutional',
-    audience: 'Asset managers, banks, trading firms',
-    description: 'Full real-time access with custom integrations. Enterprise-grade SLAs and dedicated support.',
+    name: 'Pro',
+    audience: 'Active traders and investors',
+    description: 'Everything you need to trade smarter. Full access to AI research, real-time data, and learning content.',
     features: [
-      'Real-time streaming',
-      'Custom integrations',
-      'Dedicated support',
-      'SLA guarantees',
-      'Priority processing',
+      'Unlimited AI research',
+      'Real-time market data',
+      'Advanced charting tools',
+      'All courses & webinars',
+      'Priority support',
     ],
     highlight: true,
   },
   {
-    name: 'Sovereign',
-    audience: 'Central banks, regulators, supervisors',
-    description: 'Maximum data depth with bespoke deployment options. On-premise and air-gapped configurations available.',
+    name: 'Enterprise',
+    audience: 'Teams, educators, and institutions',
+    description: 'Custom solutions for organizations. White-label options, API access, and dedicated account management.',
     features: [
-      'Maximum data depth',
-      'On-premise options',
-      'Custom security configs',
-      'Dedicated infrastructure',
-      'Direct engineering support',
+      'Everything in Pro',
+      'Team management',
+      'API access',
+      'White-label options',
+      'Dedicated account manager',
     ],
     highlight: false,
   },
@@ -189,7 +189,7 @@ export default function AccessTiersFold() {
           }`}
         >
           <div className="w-8 h-px bg-cyan-400/50" />
-          <span className="text-cyan-400/70 text-sm font-mono tracking-wider">08 / ACCESS</span>
+          <span className="text-cyan-400/70 text-sm font-mono tracking-wider">08 / PRICING</span>
         </div>
 
         {/* Title */}
@@ -198,9 +198,9 @@ export default function AccessTiersFold() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          Access structured by
+          Simple, transparent
           <br />
-          <span className="text-slate-500">institutional responsibility.</span>
+          <span className="text-slate-500">pricing.</span>
         </h2>
 
         <p
@@ -208,8 +208,7 @@ export default function AccessTiersFold() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          Quasar's access model reflects the principle that data reach should align with
-          institutional accountability. Greater access comes with greater responsibility.
+          Start free and upgrade when you're ready. No hidden fees. Cancel anytime.
         </p>
 
         {/* Tiers grid with 3D perspective */}
@@ -234,10 +233,10 @@ export default function AccessTiersFold() {
           }`}
         >
           <p className="text-slate-600 text-sm">
-            Access is provisioned based on institutional verification and intended use case.
+            All plans include access to our community and basic educational resources.
           </p>
           <p className="text-slate-700 text-xs mt-2">
-            Contact Quasar Markets for detailed tier specifications.
+            Need a custom plan? Contact us for enterprise solutions.
           </p>
         </div>
       </div>
