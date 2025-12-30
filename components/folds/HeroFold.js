@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useState, useRef } from 'react';
-import { ArrowRight, Play, TrendingUp, Newspaper, Brain, Trophy, GraduationCap } from 'lucide-react';
+import { ArrowRight, Play, LineChart, Newspaper, Brain, Trophy, GraduationCap } from 'lucide-react';
 
 const browserCategories = [
   {
-    icon: TrendingUp,
+    icon: LineChart,
     label: 'Trading',
     description: 'Real-time market analysis, live charts, and actionable trading signals to help you make smarter investment decisions.',
   },
