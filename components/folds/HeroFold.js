@@ -319,14 +319,14 @@ export default function HeroFold() {
                 />
 
                 {/* Cycling icons */}
-                <div className="relative w-full h-full flex items-center justify-center px-4">
+                <div className="absolute inset-0 flex items-center justify-center px-4">
                   {browserCategories.map((category, index) => {
                     const Icon = category.icon;
                     const isActive = index === activeCategory;
                     return (
                       <div
                         key={category.label}
-                        className={`absolute flex flex-col items-center gap-4 transition-all duration-700 ease-out ${
+                        className={`absolute flex flex-col items-center justify-center gap-4 transition-all duration-700 ease-out ${
                           isActive
                             ? 'opacity-100 scale-100 translate-y-0'
                             : 'opacity-0 scale-75 translate-y-8'
@@ -334,41 +334,17 @@ export default function HeroFold() {
                       >
                         {/* Extra large icon with glow effect */}
                         <Icon
-                          className="w-36 h-36 md:w-44 md:h-44 lg:w-48 lg:h-48 text-cyan-400 transition-all duration-500"
-                          strokeWidth={0.75}
+                          className="w-72 h-72 md:w-80 md:h-80 lg:w-96 lg:h-96 text-cyan-400 transition-all duration-500"
+                          strokeWidth={0.3}
                           style={{
-                            filter: isActive ? 'drop-shadow(0 0 40px rgba(34,211,238,0.6))' : 'none',
+                            filter: isActive ? 'drop-shadow(0 0 80px rgba(34,211,238,0.5))' : 'none',
                           }}
                         />
-
-                        {/* Label */}
-                        <span className="text-3xl md:text-4xl font-bold text-cyan-400 tracking-wide">
-                          {category.label}
-                        </span>
-
-                        {/* Description */}
-                        <p className="text-sm md:text-base lg:text-lg text-slate-400 text-center max-w-[320px] leading-relaxed">
-                          {category.description}
-                        </p>
                       </div>
                     );
                   })}
                 </div>
 
-                {/* Progress dots */}
-                <div className="absolute bottom-6 flex items-center gap-2">
-                  {browserCategories.map((_, index) => (
-                    <button
-                      key={index}
-                      onClick={() => setActiveCategory(index)}
-                      className={`transition-all duration-300 rounded-full ${
-                        index === activeCategory
-                          ? 'w-6 h-2 bg-cyan-400'
-                          : 'w-2 h-2 bg-slate-600 hover:bg-slate-500'
-                      }`}
-                    />
-                  ))}
-                </div>
               </div>
 
               {/* Bottom status bar */}
