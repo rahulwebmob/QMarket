@@ -1,19 +1,28 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import {
+  TrendingUp, Database, Newspaper,
+  LineChart, Brain, Bell, Star,
+  Radio, Lightbulb, Zap,
+  Globe, BarChart3, FileText
+} from 'lucide-react';
 
 const dataSources = [
   {
     category: 'Stocks & ETFs',
     items: ['NYSE', 'NASDAQ', 'S&P 500', 'Russell 2000', 'Global Markets'],
+    icon: TrendingUp,
   },
   {
     category: 'Market Data',
     items: ['Real-time quotes', 'Historical data', 'After-hours trading', 'Pre-market analysis'],
+    icon: Database,
   },
   {
     category: 'News & Events',
     items: ['Earnings reports', 'SEC filings', 'Market news', 'Economic indicators'],
+    icon: Newspaper,
   },
 ];
 
@@ -21,18 +30,22 @@ const verificationLayers = [
   {
     layer: 'Real-Time Charts',
     description: 'Interactive charts with multiple timeframes and technical indicators',
+    icon: LineChart,
   },
   {
     layer: 'AI Analysis',
     description: 'Pattern recognition and trend analysis powered by machine learning',
+    icon: Brain,
   },
   {
     layer: 'Custom Alerts',
     description: 'Set price alerts and get notified when opportunities arise',
+    icon: Bell,
   },
   {
     layer: 'Watchlists',
     description: 'Track your favorite stocks with personalized watchlists',
+    icon: Star,
   },
 ];
 
@@ -226,7 +239,7 @@ export default function SourceFold() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden">
+    <section id="coverage" ref={sectionRef} className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f14] via-[#050709] to-[#0b0f14]" />
 
@@ -290,38 +303,39 @@ export default function SourceFold() {
               }`}
             >
               <span className="w-8 h-8 rounded-lg bg-cyan-400/10 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4" />
-                </svg>
+                <Globe className="w-4 h-4 text-cyan-400" strokeWidth={1.5} />
               </span>
               Market Coverage
             </h3>
 
             <div className="space-y-6">
-              {dataSources.map((source, i) => (
-                <div
-                  key={i}
-                  className={`transition-all duration-700 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ transitionDelay: `${500 + i * 100}ms` }}
-                >
-                  <h4 className="text-slate-300 font-medium mb-3 flex items-center gap-2 text-sm">
-                    <span className="w-1.5 h-1.5 bg-cyan-400 rounded-full" />
-                    {source.category}
-                  </h4>
-                  <div className="flex flex-wrap gap-2 pl-4">
-                    {source.items.map((item, j) => (
-                      <span
-                        key={j}
-                        className="text-xs text-slate-500 py-1.5 px-3 bg-slate-800/50 rounded-full border border-slate-700/50 hover:border-cyan-400/30 hover:text-slate-400 transition-all duration-300"
-                      >
-                        {item}
-                      </span>
-                    ))}
+              {dataSources.map((source, i) => {
+                const SourceIcon = source.icon;
+                return (
+                  <div
+                    key={i}
+                    className={`transition-all duration-700 ${
+                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    }`}
+                    style={{ transitionDelay: `${500 + i * 100}ms` }}
+                  >
+                    <h4 className="text-slate-300 font-medium mb-3 flex items-center gap-2 text-sm">
+                      <SourceIcon className="w-4 h-4 text-cyan-400" strokeWidth={1.5} />
+                      {source.category}
+                    </h4>
+                    <div className="flex flex-wrap gap-2 pl-6">
+                      {source.items.map((item, j) => (
+                        <span
+                          key={j}
+                          className="text-xs text-slate-500 py-1.5 px-3 bg-slate-800/50 rounded-full border border-slate-700/50 hover:border-cyan-400/30 hover:text-slate-400 transition-all duration-300"
+                        >
+                          {item}
+                        </span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
 
@@ -333,35 +347,36 @@ export default function SourceFold() {
               }`}
             >
               <span className="w-8 h-8 rounded-lg bg-teal-400/10 flex items-center justify-center">
-                <svg viewBox="0 0 24 24" className="w-4 h-4 text-teal-400" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
-                </svg>
+                <BarChart3 className="w-4 h-4 text-teal-400" strokeWidth={1.5} />
               </span>
               Analysis Tools
             </h3>
 
             <div className="space-y-3">
-              {verificationLayers.map((layer, i) => (
-                <div
-                  key={i}
-                  className={`group p-4 rounded-lg border border-slate-800/50 hover:border-teal-400/20 bg-slate-900/30 hover:bg-slate-900/50 transition-all duration-300 ${
-                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                  }`}
-                  style={{ transitionDelay: `${500 + i * 100}ms` }}
-                >
-                  <div className="flex items-start gap-3">
-                    <div className="w-6 h-6 rounded bg-teal-400/10 flex items-center justify-center flex-shrink-0 mt-0.5">
-                      <span className="text-[10px] font-mono text-teal-400">{i + 1}</span>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h4 className="text-slate-200 font-medium text-sm mb-0.5 group-hover:text-teal-400 transition-colors duration-300">
-                        {layer.layer}
-                      </h4>
-                      <p className="text-xs text-slate-500 leading-relaxed">{layer.description}</p>
+              {verificationLayers.map((layer, i) => {
+                const LayerIcon = layer.icon;
+                return (
+                  <div
+                    key={i}
+                    className={`group p-4 rounded-lg border border-slate-800/50 hover:border-teal-400/20 bg-slate-900/30 hover:bg-slate-900/50 transition-all duration-300 ${
+                      isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                    }`}
+                    style={{ transitionDelay: `${500 + i * 100}ms` }}
+                  >
+                    <div className="flex items-start gap-3">
+                      <div className="w-8 h-8 rounded-lg bg-teal-400/10 flex items-center justify-center flex-shrink-0 group-hover:bg-teal-400/20 transition-colors duration-300">
+                        <LayerIcon className="w-4 h-4 text-teal-400" strokeWidth={1.5} />
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h4 className="text-slate-200 font-medium text-sm mb-0.5 group-hover:text-teal-400 transition-colors duration-300">
+                          {layer.layer}
+                        </h4>
+                        <p className="text-xs text-slate-500 leading-relaxed">{layer.description}</p>
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                );
+              })}
             </div>
           </div>
         </div>

@@ -1,198 +1,130 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Layers, HelpCircle, Sparkles, Users, Radio, Target, Clock } from 'lucide-react';
 
-// Chaotic data visualization (left side)
-function ChaoticDataVisual({ progress }) {
-  const canvasRef = useRef(null);
+// AI Chat with typing animation
+function AIChat() {
+  const qaPairs = [
+    { q: "Is $AAPL a good buy today?", a: "Bullish. RSI 58, strong volume. Entry above $185." },
+    { q: "What's the outlook for $NVDA?", a: "Strong momentum. AI demand driving growth. Hold." },
+    { q: "Should I sell $TSLA now?", a: "Neutral. Wait for earnings. Set stop at $240." },
+  ];
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [questionText, setQuestionText] = useState('');
+  const [answerText, setAnswerText] = useState('');
+  const [phase, setPhase] = useState('typing-q');
+  const [cursorOpacity, setCursorOpacity] = useState(1);
+  const [answerVisible, setAnswerVisible] = useState(false);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const currentQ = qaPairs[currentIndex].q;
+    const currentA = qaPairs[currentIndex].a;
+    let timeout;
 
-    const ctx = canvas.getContext('2d');
-    let animationId;
-    let elements = [];
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * 2;
-      canvas.height = canvas.offsetHeight * 2;
-      ctx.scale(2, 2);
-    };
-
-    resize();
-
-    // Create chaotic elements
-    for (let i = 0; i < 25; i++) {
-      elements.push({
-        x: Math.random() * canvas.offsetWidth,
-        y: Math.random() * canvas.offsetHeight,
-        width: Math.random() * 80 + 30,
-        height: Math.random() * 40 + 15,
-        rotation: Math.random() * 60 - 30,
-        opacity: Math.random() * 0.4 + 0.1,
-        speed: Math.random() * 2 + 0.5,
-        phase: Math.random() * Math.PI * 2,
-      });
+    if (phase === 'typing-q') {
+      if (questionText.length < currentQ.length) {
+        timeout = setTimeout(() => {
+          setQuestionText(currentQ.slice(0, questionText.length + 1));
+        }, 60 + Math.random() * 40); // Natural typing speed variation
+      } else {
+        timeout = setTimeout(() => {
+          setAnswerVisible(true);
+          setPhase('typing-a');
+        }, 500);
+      }
+    } else if (phase === 'typing-a') {
+      if (answerText.length < currentA.length) {
+        timeout = setTimeout(() => {
+          setAnswerText(currentA.slice(0, answerText.length + 1));
+        }, 30 + Math.random() * 25);
+      } else {
+        timeout = setTimeout(() => setPhase('pause'), 2500);
+      }
+    } else if (phase === 'pause') {
+      timeout = setTimeout(() => setPhase('fade-out'), 800);
+    } else if (phase === 'fade-out') {
+      setAnswerVisible(false);
+      timeout = setTimeout(() => {
+        setAnswerText('');
+        setQuestionText('');
+        setCurrentIndex((currentIndex + 1) % qaPairs.length);
+        setPhase('typing-q');
+      }, 400);
     }
 
-    let time = 0;
+    return () => clearTimeout(timeout);
+  }, [phase, questionText, answerText, currentIndex]);
 
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-      time += 0.02;
-
-      const chaos = 1 - progress;
-
-      elements.forEach((el) => {
-        ctx.save();
-        ctx.translate(el.x, el.y);
-        ctx.rotate(((el.rotation * chaos) * Math.PI) / 180);
-
-        // Jitter based on chaos level
-        const jitterX = Math.sin(time * el.speed + el.phase) * 5 * chaos;
-        const jitterY = Math.cos(time * el.speed + el.phase) * 5 * chaos;
-
-        // Blurred/glitchy rectangles
-        ctx.fillStyle = `rgba(100, 116, 139, ${el.opacity * chaos})`;
-        ctx.fillRect(jitterX - el.width / 2, jitterY - el.height / 2, el.width, el.height);
-
-        // Glitch lines
-        if (chaos > 0.3) {
-          ctx.strokeStyle = `rgba(239, 68, 68, ${0.3 * chaos})`;
-          ctx.lineWidth = 1;
-          ctx.beginPath();
-          ctx.moveTo(jitterX - el.width / 2, jitterY);
-          ctx.lineTo(jitterX + el.width / 2, jitterY + (Math.random() - 0.5) * 10);
-          ctx.stroke();
-        }
-
-        ctx.restore();
-      });
-
-      // Flickering numbers
-      if (chaos > 0.2) {
-        ctx.font = '10px JetBrains Mono, monospace';
-        ctx.fillStyle = `rgba(148, 163, 184, ${0.4 * chaos})`;
-        for (let i = 0; i < 15 * chaos; i++) {
-          const num = (Math.random() * 1000).toFixed(2);
-          ctx.fillText(
-            num,
-            Math.random() * canvas.offsetWidth,
-            Math.random() * canvas.offsetHeight
-          );
-        }
-      }
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => cancelAnimationFrame(animationId);
-  }, [progress]);
-
-  return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-      style={{ filter: `blur(${(1 - progress) * 2}px)` }}
-    />
-  );
-}
-
-// Clean coherent visualization (right side)
-function CoherentDataVisual({ progress }) {
-  const canvasRef = useRef(null);
-
+  // Smooth cursor blink
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
-
-    const ctx = canvas.getContext('2d');
-    let animationId;
-
-    const resize = () => {
-      canvas.width = canvas.offsetWidth * 2;
-      canvas.height = canvas.offsetHeight * 2;
-      ctx.scale(2, 2);
+    let frame;
+    let start = performance.now();
+    const animate = (time) => {
+      const elapsed = time - start;
+      const opacity = 0.3 + Math.abs(Math.sin(elapsed / 400)) * 0.7;
+      setCursorOpacity(opacity);
+      frame = requestAnimationFrame(animate);
     };
+    frame = requestAnimationFrame(animate);
+    return () => cancelAnimationFrame(frame);
+  }, []);
 
-    resize();
-
-    let time = 0;
-
-    const animate = () => {
-      ctx.clearRect(0, 0, canvas.offsetWidth, canvas.offsetHeight);
-      time += 0.01;
-
-      const clarity = progress;
-      const centerX = canvas.offsetWidth / 2;
-      const centerY = canvas.offsetHeight / 2;
-
-      // Clean grid
-      ctx.strokeStyle = `rgba(0, 255, 255, ${0.1 * clarity})`;
-      ctx.lineWidth = 0.5;
-      const gridSize = 30;
-      for (let x = 0; x < canvas.offsetWidth; x += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(x, 0);
-        ctx.lineTo(x, canvas.offsetHeight);
-        ctx.stroke();
-      }
-      for (let y = 0; y < canvas.offsetHeight; y += gridSize) {
-        ctx.beginPath();
-        ctx.moveTo(0, y);
-        ctx.lineTo(canvas.offsetWidth, y);
-        ctx.stroke();
-      }
-
-      // Central coherent signal
-      ctx.beginPath();
-      ctx.strokeStyle = `rgba(0, 255, 255, ${0.6 * clarity})`;
-      ctx.lineWidth = 2;
-      for (let x = 0; x < canvas.offsetWidth; x += 2) {
-        const y = centerY + Math.sin((x / canvas.offsetWidth) * Math.PI * 4 + time * 2) * 30 * clarity;
-        if (x === 0) ctx.moveTo(x, y);
-        else ctx.lineTo(x, y);
-      }
-      ctx.stroke();
-
-      // Glow effect
-      ctx.shadowBlur = 20 * clarity;
-      ctx.shadowColor = 'rgba(0, 255, 255, 0.5)';
-
-      // Central node
-      const pulseSize = 8 + Math.sin(time * 2) * 2;
-      ctx.beginPath();
-      ctx.arc(centerX, centerY, pulseSize * clarity, 0, Math.PI * 2);
-      ctx.fillStyle = `rgba(0, 255, 255, ${0.8 * clarity})`;
-      ctx.fill();
-
-      // Concentric rings
-      for (let i = 1; i <= 3; i++) {
-        ctx.beginPath();
-        ctx.arc(centerX, centerY, 30 * i * clarity, 0, Math.PI * 2);
-        ctx.strokeStyle = `rgba(0, 255, 255, ${(0.3 / i) * clarity})`;
-        ctx.lineWidth = 1;
-        ctx.stroke();
-      }
-
-      ctx.shadowBlur = 0;
-
-      animationId = requestAnimationFrame(animate);
-    };
-
-    animate();
-
-    return () => cancelAnimationFrame(animationId);
-  }, [progress]);
+  const isTypingAnswer = phase === 'typing-a' || phase === 'pause' || phase === 'fade-out';
 
   return (
-    <canvas
-      ref={canvasRef}
-      className="absolute inset-0 w-full h-full"
-    />
+    <div className="absolute right-0 top-0 w-1/2 h-full bg-[#07090c] overflow-hidden flex flex-col justify-center px-5">
+      <div className="space-y-3">
+        {/* Question */}
+        <div className="flex justify-end">
+          <div
+            className="bg-slate-700/50 backdrop-blur-sm border border-slate-600/30 px-4 py-2.5 rounded-2xl rounded-br-sm min-h-[42px] transition-all duration-300"
+            style={{
+              opacity: phase === 'fade-out' ? 0 : 1,
+              transform: phase === 'fade-out' ? 'translateX(10px)' : 'translateX(0)'
+            }}
+          >
+            <span className="text-[13px] text-white">
+              {questionText}
+              {!isTypingAnswer && questionText.length > 0 && (
+                <span className="text-slate-400 ml-[1px]" style={{ opacity: cursorOpacity }}>|</span>
+              )}
+            </span>
+          </div>
+        </div>
+
+        {/* Answer */}
+        <div
+          className="flex justify-start transition-all duration-300"
+          style={{
+            opacity: answerVisible ? 1 : 0,
+            transform: answerVisible ? 'translateY(0)' : 'translateY(8px)'
+          }}
+        >
+          <div className="bg-gradient-to-br from-cyan-950/60 to-slate-800/50 backdrop-blur-sm border border-cyan-500/20 px-4 py-2.5 rounded-2xl rounded-bl-sm min-h-[60px]">
+            <div className="flex items-center gap-2 mb-1">
+              <div className="w-4 h-4 rounded-full bg-cyan-400/20 flex items-center justify-center">
+                <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full" />
+              </div>
+              <span className="text-[10px] text-cyan-400/80">Quasar AI</span>
+            </div>
+            <span className="text-[13px] text-slate-300">
+              {answerText}
+              {isTypingAnswer && answerText.length > 0 && (
+                <span className="text-cyan-400 ml-[1px]" style={{ opacity: cursorOpacity }}>|</span>
+              )}
+            </span>
+          </div>
+        </div>
+      </div>
+
+      <div className="absolute bottom-4 right-4 z-10">
+        <span className="text-cyan-400/60 text-xs font-mono tracking-wider">
+          AI INSIGHTS
+        </span>
+      </div>
+    </div>
   );
 }
 
@@ -297,31 +229,22 @@ export default function DivideFold() {
             isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
           }`}
         >
-          {/* Left: Chaos */}
-          <div className="absolute left-0 top-0 w-1/2 h-full bg-slate-900/50">
-            <ChaoticDataVisual progress={progress} />
+          {/* Left: TradingView Mini Chart */}
+          <div className="absolute left-0 top-0 w-1/2 h-full bg-slate-900/50 overflow-hidden">
+            <iframe
+              src="https://s.tradingview.com/embed-widget/mini-symbol-overview/?locale=en#%7B%22symbol%22%3A%22NASDAQ%3AAAPL%22%2C%22width%22%3A%22100%25%22%2C%22height%22%3A%22100%25%22%2C%22dateRange%22%3A%2212M%22%2C%22colorTheme%22%3A%22dark%22%2C%22isTransparent%22%3Atrue%2C%22autosize%22%3Atrue%2C%22largeChartUrl%22%3A%22%22%7D"
+              className="absolute inset-0 w-full h-full border-0"
+              style={{ pointerEvents: 'none' }}
+            />
             <div className="absolute bottom-4 left-4 z-10">
-              <span
-                className="text-slate-500 text-sm font-mono transition-opacity duration-500"
-                style={{ opacity: 1 - progress }}
-              >
-                FRAGMENTED
+              <span className="text-slate-500 text-sm font-mono">
+                RAW DATA
               </span>
             </div>
           </div>
 
-          {/* Right: Coherent */}
-          <div className="absolute right-0 top-0 w-1/2 h-full bg-[#07090c]">
-            <CoherentDataVisual progress={progress} />
-            <div className="absolute bottom-4 right-4 z-10">
-              <span
-                className="text-cyan-400/80 text-sm font-mono transition-opacity duration-500"
-                style={{ opacity: progress }}
-              >
-                COHERENT
-              </span>
-            </div>
-          </div>
+          {/* Right: Single Q&A Bubble Animation */}
+          <AIChat />
 
           {/* Divider */}
           <DividerLine progress={progress} />
@@ -335,27 +258,38 @@ export default function DivideFold() {
               {
                 title: 'The information overload',
                 text: 'Markets move fast. News, charts, signals — everywhere you look. Most traders drown in data while missing the moves that matter.',
+                icon: Layers,
               },
               {
                 title: 'Guessing vs. knowing',
                 text: 'Traditional trading relies on gut feelings and outdated analysis. Hours spent researching, still uncertain. The market doesn\'t wait for you to catch up.',
+                icon: HelpCircle,
               },
               {
                 title: 'The AI advantage',
                 text: 'Quasar Markets cuts through the noise with AI-powered intelligence. Real-time insights, pattern recognition, and actionable signals — so you can spot the move and act fast.',
+                icon: Sparkles,
               },
-            ].map((item, i) => (
-              <div
-                key={i}
-                className={`space-y-4 transition-all duration-700 ${
-                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-                }`}
-                style={{ transitionDelay: `${300 + i * 100}ms` }}
-              >
-                <h3 className="text-xl text-slate-200 font-medium">{item.title}</h3>
-                <p className="text-slate-500 leading-relaxed">{item.text}</p>
-              </div>
-            ))}
+            ].map((item, i) => {
+              const ItemIcon = item.icon;
+              return (
+                <div
+                  key={i}
+                  className={`space-y-4 transition-all duration-700 ${
+                    isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                  }`}
+                  style={{ transitionDelay: `${300 + i * 100}ms` }}
+                >
+                  <h3 className="text-xl text-slate-200 font-medium flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-cyan-400/10 flex items-center justify-center">
+                      <ItemIcon className="w-4 h-4 text-cyan-400" strokeWidth={1.5} />
+                    </div>
+                    {item.title}
+                  </h3>
+                  <p className="text-slate-500 leading-relaxed pl-11">{item.text}</p>
+                </div>
+              );
+            })}
           </div>
 
           {/* Right: visual metaphor */}
@@ -436,22 +370,28 @@ export default function DivideFold() {
         {/* Bottom stats */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-20 pt-12 border-t border-slate-800/30">
           {[
-            { value: '10K+', label: 'Active Traders' },
-            { value: 'Real-Time', label: 'Market Data' },
-            { value: '95%', label: 'Signal Accuracy' },
-            { value: '24/7', label: 'AI Analysis' },
-          ].map((stat, i) => (
-            <div
-              key={i}
-              className={`text-center md:text-left transition-all duration-700 ${
-                isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
-              }`}
-              style={{ transitionDelay: `${600 + i * 100}ms` }}
-            >
-              <div className="text-2xl md:text-3xl font-light text-white mb-2 font-mono">{stat.value}</div>
-              <div className="text-sm text-slate-600">{stat.label}</div>
-            </div>
-          ))}
+            { value: '10K+', label: 'Active Traders', icon: Users },
+            { value: 'Real-Time', label: 'Market Data', icon: Radio },
+            { value: '95%', label: 'Signal Accuracy', icon: Target },
+            { value: '24/7', label: 'AI Analysis', icon: Clock },
+          ].map((stat, i) => {
+            const StatIcon = stat.icon;
+            return (
+              <div
+                key={i}
+                className={`text-center transition-all duration-700 group ${
+                  isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'
+                }`}
+                style={{ transitionDelay: `${600 + i * 100}ms` }}
+              >
+                <div className="flex justify-center mb-2">
+                  <StatIcon className="w-5 h-5 text-cyan-400/60 group-hover:text-cyan-400 transition-colors duration-300" strokeWidth={1.5} />
+                </div>
+                <div className="text-2xl md:text-3xl font-light text-white mb-2 font-mono">{stat.value}</div>
+                <div className="text-sm text-slate-600">{stat.label}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

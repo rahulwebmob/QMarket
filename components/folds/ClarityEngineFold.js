@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Radar, BarChart3, TrendingUp, Bell, Zap } from 'lucide-react';
 
 const stages = [
   {
@@ -8,35 +9,43 @@ const stages = [
     title: 'Scan',
     description: 'Our AI continuously monitors thousands of stocks, ETFs, and market signals in real-time.',
     icon: '01',
+    lucideIcon: Radar,
   },
   {
     id: 'analyze',
     title: 'Analyze',
     description: 'Advanced algorithms identify patterns, trends, and opportunities across multiple timeframes.',
     icon: '02',
+    lucideIcon: BarChart3,
   },
   {
     id: 'predict',
     title: 'Predict',
     description: 'Machine learning models forecast potential price movements and market scenarios.',
     icon: '03',
+    lucideIcon: TrendingUp,
   },
   {
     id: 'alert',
     title: 'Alert',
     description: 'Get notified instantly when AI detects actionable opportunities matching your criteria.',
     icon: '04',
+    lucideIcon: Bell,
   },
   {
     id: 'execute',
     title: 'Execute',
     description: 'Act on insights with confidence. All the intelligence you need to make informed decisions.',
     icon: '05',
+    lucideIcon: Zap,
   },
 ];
 
 // Beautiful CSS-based HUD visualization
 function EngineCoreHUD({ hoveredStage, isVisible }) {
+  const activeStage = stages.find(s => s.id === hoveredStage);
+  const ActiveIcon = activeStage?.lucideIcon;
+
   return (
     <div className="relative w-full max-w-md mx-auto aspect-square">
       {/* Outer rotating ring */}
@@ -61,7 +70,9 @@ function EngineCoreHUD({ hoveredStage, isVisible }) {
 
       {/* Middle ring - counter rotate */}
       <div
-        className="absolute inset-8 rounded-full border border-cyan-400/15"
+        className={`absolute inset-8 rounded-full border transition-all duration-500 ${
+          hoveredStage ? 'border-cyan-400/40' : 'border-cyan-400/15'
+        }`}
         style={{
           animation: isVisible ? 'spin 45s linear infinite reverse' : 'none',
         }}
@@ -69,7 +80,9 @@ function EngineCoreHUD({ hoveredStage, isVisible }) {
 
       {/* Inner dashed ring */}
       <div
-        className="absolute inset-16 rounded-full border border-dashed border-cyan-400/20"
+        className={`absolute inset-16 rounded-full border border-dashed transition-all duration-500 ${
+          hoveredStage ? 'border-cyan-400/50' : 'border-cyan-400/20'
+        }`}
         style={{
           animation: isVisible ? 'spin 30s linear infinite' : 'none',
         }}
@@ -78,22 +91,36 @@ function EngineCoreHUD({ hoveredStage, isVisible }) {
       {/* Pulsing core */}
       <div className="absolute inset-24 rounded-full">
         <div
-          className="absolute inset-0 rounded-full bg-cyan-400/5"
+          className={`absolute inset-0 rounded-full transition-all duration-500 ${
+            hoveredStage ? 'bg-cyan-400/15' : 'bg-cyan-400/5'
+          }`}
           style={{
             animation: isVisible ? 'pulse-core 3s ease-in-out infinite' : 'none',
           }}
         />
         <div
-          className="absolute inset-4 rounded-full bg-cyan-400/10"
+          className={`absolute inset-4 rounded-full transition-all duration-500 ${
+            hoveredStage ? 'bg-cyan-400/20' : 'bg-cyan-400/10'
+          }`}
           style={{
             animation: isVisible ? 'pulse-core 3s ease-in-out infinite 0.5s' : 'none',
           }}
         />
-        <div className="absolute inset-8 rounded-full bg-cyan-400/20" />
+        <div className={`absolute inset-8 rounded-full transition-all duration-500 ${
+          hoveredStage ? 'bg-cyan-400/30' : 'bg-cyan-400/20'
+        }`} />
       </div>
 
-      {/* Center dot */}
-      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.5)]" />
+      {/* Center icon or dot */}
+      <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center">
+        {ActiveIcon ? (
+          <div className="w-24 h-24 rounded-full bg-cyan-400/10 border border-cyan-400/30 flex items-center justify-center transition-all duration-300 shadow-[0_0_40px_rgba(0,255,255,0.3)]">
+            <ActiveIcon className="w-12 h-12 text-cyan-400" strokeWidth={1.5} />
+          </div>
+        ) : (
+          <div className="w-4 h-4 rounded-full bg-cyan-400 shadow-[0_0_20px_rgba(0,255,255,0.5)]" />
+        )}
+      </div>
 
       {/* Stage nodes positioned around the circle */}
       {stages.map((stage, i) => {
@@ -102,6 +129,7 @@ function EngineCoreHUD({ hoveredStage, isVisible }) {
         const x = 50 + Math.cos(angle) * radius;
         const y = 50 + Math.sin(angle) * radius;
         const isActive = hoveredStage === stage.id;
+        const StageIcon = stage.lucideIcon;
 
         return (
           <div
@@ -113,14 +141,21 @@ function EngineCoreHUD({ hoveredStage, isVisible }) {
               transform: 'translate(-50%, -50%)',
             }}
           >
-            {/* Node */}
+            {/* Node with icon */}
             <div
-              className={`w-4 h-4 rounded-full transition-all duration-300 ${
+              className={`flex items-center justify-center rounded-full transition-all duration-300 ${
                 isActive
-                  ? 'bg-cyan-400 scale-150 shadow-[0_0_20px_rgba(0,255,255,0.6)]'
-                  : 'bg-cyan-400/40 scale-100'
+                  ? 'w-14 h-14 bg-cyan-400/20 border border-cyan-400/50 shadow-[0_0_20px_rgba(0,255,255,0.4)]'
+                  : 'w-10 h-10 bg-slate-800/60 border border-cyan-400/20'
               }`}
-            />
+            >
+              <StageIcon
+                className={`transition-all duration-300 ${
+                  isActive ? 'w-8 h-8 text-cyan-400' : 'w-5 h-5 text-cyan-400/50'
+                }`}
+                strokeWidth={1.5}
+              />
+            </div>
             {/* Connection line to center */}
             <div
               className={`absolute w-px bg-gradient-to-b from-cyan-400/40 to-transparent transition-opacity duration-300 ${
@@ -197,7 +232,7 @@ export default function ClarityEngineFold() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden">
+    <section id="how-it-works" ref={sectionRef} className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f14] via-[#050709] to-[#0b0f14]" />
 

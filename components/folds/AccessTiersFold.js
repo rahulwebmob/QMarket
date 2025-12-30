@@ -1,55 +1,60 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Check, Sparkles, ArrowRight } from 'lucide-react';
 
 const tiers = [
   {
-    name: 'Free',
+    name: 'Free Trial',
+    price: '$0',
+    period: '7 days',
     audience: 'New traders exploring the platform',
-    description: 'Get started with basic features. Perfect for learning and trying out the platform risk-free.',
+    description: 'Get started with full access. No credit card required.',
     features: [
-      '7-day full access trial',
-      'Basic market data',
-      'Limited AI queries',
-      'Community access',
+      'Full platform access for 7 days',
+      'No credit card required',
+      'No hidden fees or obligations',
+      'Cancel anytime',
     ],
     highlight: false,
+    cta: 'Start Free Trial',
   },
   {
-    name: 'Pro',
-    audience: 'Active traders and investors',
-    description: 'Everything you need to trade smarter. Full access to AI research, real-time data, and learning content.',
+    name: 'Monthly',
+    price: '$14.99',
+    period: 'per month',
+    audience: 'Active traders who want flexibility',
+    description: 'Full access to all AI tools and features. Cancel anytime.',
     features: [
       'Unlimited AI research',
       'Real-time market data',
       'Advanced charting tools',
-      'All courses & webinars',
       'Priority support',
     ],
     highlight: true,
+    cta: 'Get Started',
   },
   {
-    name: 'Enterprise',
-    audience: 'Teams, educators, and institutions',
-    description: 'Custom solutions for organizations. White-label options, API access, and dedicated account management.',
+    name: 'Annual',
+    price: '$149.99',
+    period: 'per year',
+    audience: 'Committed traders saving $30/year',
+    description: 'Everything in Monthly, billed annually. Best value.',
     features: [
-      'Everything in Pro',
-      'Team management',
-      'API access',
-      'White-label options',
-      'Dedicated account manager',
+      'Everything in Monthly',
+      'Save $30 per year',
+      'Lock in current pricing',
+      'Priority support',
     ],
     highlight: false,
+    cta: 'Get Started',
+    badge: 'SAVE $30',
   },
 ];
 
-// 3D Tier card component
+// Tier card component with 3D hover effect
 function TierCard({ tier, index, isVisible, totalCards }) {
   const [isHovered, setIsHovered] = useState(false);
-
-  // Calculate 3D stacking position
-  const zOffset = (totalCards - 1 - index) * 20;
-  const yOffset = (totalCards - 1 - index) * 10;
 
   return (
     <div
@@ -59,7 +64,7 @@ function TierCard({ tier, index, isVisible, totalCards }) {
       style={{
         transitionDelay: `${index * 150}ms`,
         transform: isVisible
-          ? `translateY(${isHovered ? -8 : 0}px) translateZ(${isHovered ? 20 : 0}px)`
+          ? `translateY(${isHovered ? -8 : 0}px)`
           : 'translateY(40px)',
         zIndex: isHovered ? 10 : totalCards - index,
       }}
@@ -67,7 +72,7 @@ function TierCard({ tier, index, isVisible, totalCards }) {
       onMouseLeave={() => setIsHovered(false)}
     >
       <div
-        className={`relative p-8 border transition-all duration-500 ${
+        className={`relative p-8 border transition-all duration-500 h-full flex flex-col ${
           tier.highlight
             ? 'bg-gradient-to-b from-cyan-400/5 to-transparent border-cyan-400/30'
             : 'bg-slate-900/30 border-slate-800/50'
@@ -88,32 +93,41 @@ function TierCard({ tier, index, isVisible, totalCards }) {
           />
         )}
 
-        {/* Tier badge for highlighted */}
+        {/* Badge */}
         {tier.highlight && (
           <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#07090c] border border-cyan-400/40 text-cyan-400 text-xs font-mono">
             RECOMMENDED
           </div>
         )}
+        {tier.badge && !tier.highlight && (
+          <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-1 bg-[#07090c] border border-teal-400/40 text-teal-400 text-xs font-mono">
+            {tier.badge}
+          </div>
+        )}
 
-        {/* Tier name */}
-        <h3
-          className={`text-2xl font-medium mb-2 transition-colors duration-300 ${
-            tier.highlight ? 'text-cyan-400' : isHovered ? 'text-white' : 'text-slate-200'
-          }`}
-        >
-          {tier.name}
-        </h3>
+        {/* Price */}
+        <div className="mb-4">
+          <h3
+            className={`text-3xl font-medium mb-1 transition-colors duration-300 ${
+              tier.highlight ? 'text-cyan-400' : isHovered ? 'text-white' : 'text-slate-200'
+            }`}
+          >
+            {tier.price}
+            <span className="text-base font-normal text-slate-500 ml-2">/ {tier.period}</span>
+          </h3>
+          <p className="text-lg text-white font-medium">{tier.name}</p>
+        </div>
 
         {/* Audience */}
-        <p className="text-sm text-slate-500 mb-6">{tier.audience}</p>
+        <p className="text-sm text-slate-500 mb-4">{tier.audience}</p>
 
         {/* Description */}
-        <p className="text-slate-400 text-sm leading-relaxed mb-8">
+        <p className="text-slate-400 text-sm leading-relaxed mb-6">
           {tier.description}
         </p>
 
         {/* Features */}
-        <ul className="space-y-3">
+        <ul className="space-y-3 flex-1">
           {tier.features.map((feature, j) => (
             <li
               key={j}
@@ -123,16 +137,35 @@ function TierCard({ tier, index, isVisible, totalCards }) {
               style={{ transitionDelay: `${j * 50}ms` }}
             >
               <div
-                className={`w-1.5 h-1.5 transition-colors duration-300 ${
-                  tier.highlight ? 'bg-cyan-400' : isHovered ? 'bg-cyan-400/60' : 'bg-slate-600'
+                className={`w-5 h-5 rounded-full flex items-center justify-center transition-colors duration-300 ${
+                  tier.highlight ? 'bg-cyan-400/20' : isHovered ? 'bg-cyan-400/10' : 'bg-slate-800/50'
                 }`}
-              />
+              >
+                <Check
+                  className={`w-3 h-3 transition-colors duration-300 ${
+                    tier.highlight ? 'text-cyan-400' : isHovered ? 'text-cyan-400/80' : 'text-slate-500'
+                  }`}
+                  strokeWidth={2}
+                />
+              </div>
               <span className={`transition-colors duration-300 ${isHovered ? 'text-slate-300' : 'text-slate-400'}`}>
                 {feature}
               </span>
             </li>
           ))}
         </ul>
+
+        {/* CTA Button */}
+        <button
+          className={`w-full py-3 px-6 text-sm font-medium transition-all duration-300 flex items-center justify-center gap-2 group/btn mt-6 ${
+            tier.highlight
+              ? 'bg-gradient-to-r from-cyan-500 to-teal-500 text-white hover:shadow-[0_0_30px_rgba(0,255,255,0.3)]'
+              : 'border border-slate-600/50 text-white hover:border-cyan-400/50 hover:bg-cyan-400/5'
+          }`}
+        >
+          {tier.cta}
+          <ArrowRight className="w-4 h-4 transition-transform group-hover/btn:translate-x-1" strokeWidth={2} />
+        </button>
 
         {/* Decorative corner */}
         <div
@@ -169,7 +202,7 @@ export default function AccessTiersFold() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden noise-overlay">
+    <section id="pricing" ref={sectionRef} className="relative py-32 overflow-hidden noise-overlay">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f14] via-[#07090c] to-[#0b0f14]" />
 
@@ -211,19 +244,17 @@ export default function AccessTiersFold() {
           Start free and upgrade when you're ready. No hidden fees. Cancel anytime.
         </p>
 
-        {/* Tiers grid with 3D perspective */}
-        <div className="perspective-container">
-          <div className="grid md:grid-cols-3 gap-6 preserve-3d">
-            {tiers.map((tier, i) => (
-              <TierCard
-                key={i}
-                tier={tier}
-                index={i}
-                isVisible={isVisible}
-                totalCards={tiers.length}
-              />
-            ))}
-          </div>
+        {/* Tiers grid */}
+        <div className="grid md:grid-cols-3 gap-6">
+          {tiers.map((tier, i) => (
+            <TierCard
+              key={i}
+              tier={tier}
+              index={i}
+              isVisible={isVisible}
+              totalCards={tiers.length}
+            />
+          ))}
         </div>
 
         {/* Note */}

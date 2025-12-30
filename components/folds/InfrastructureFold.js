@@ -1,121 +1,108 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Brain, LineChart, Smartphone, GraduationCap, PlayCircle, Video, Clock, BookOpen, Users, Wifi } from 'lucide-react';
 
 const capabilities = [
   {
     title: 'AI-Powered Research',
     description: 'Ask questions in plain English and get instant, intelligent answers about any stock or market.',
     metrics: ['Natural language', 'Instant answers', 'Context-aware'],
+    icon: Brain,
   },
   {
     title: 'Real-Time Analytics',
     description: 'Live market data, charts, and technical indicators that update in real-time.',
     metrics: ['Live quotes', 'Technical indicators', 'Multi-timeframe'],
+    icon: LineChart,
   },
   {
     title: 'Multi-Device Access',
     description: 'Seamless experience across desktop, tablet, and mobile. Your data syncs everywhere.',
     metrics: ['Desktop app', 'Mobile app', 'Cloud sync'],
+    icon: Smartphone,
   },
   {
     title: 'Learning Platform',
     description: 'Access courses, webinars, and educational content to level up your trading skills.',
     metrics: ['Video courses', 'Live webinars', 'Expert instructors'],
+    icon: GraduationCap,
   },
 ];
 
-const layers = [
-  { name: 'User Interface', color: 'from-cyan-400/20 to-cyan-400/5' },
-  { name: 'AI Engine', color: 'from-teal-400/20 to-teal-400/5' },
-  { name: 'Analytics', color: 'from-emerald-400/20 to-emerald-400/5' },
-  { name: 'Market Data', color: 'from-cyan-400/20 to-cyan-400/5' },
-  { name: 'Cloud Platform', color: 'from-slate-400/20 to-slate-400/5' },
-];
+// Video showcase
+function VideoShowcase({ isVisible }) {
+  const videoRef = useRef(null);
+  const [isMounted, setIsMounted] = useState(false);
 
-// 3D Layered stack diagram
-function ArchitectureDiagram({ isVisible }) {
-  const [hoveredLayer, setHoveredLayer] = useState(null);
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
+
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video || !isMounted) return;
+
+    if (isVisible) {
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, [isVisible, isMounted]);
 
   return (
-    <div className="relative h-80 w-full max-w-md mx-auto perspective-1000">
-      <div
-        className="relative h-full w-full transition-transform duration-1000"
-        style={{
-          transformStyle: 'preserve-3d',
-          transform: isVisible ? 'rotateX(15deg) rotateY(-10deg)' : 'rotateX(0deg) rotateY(0deg)',
-        }}
-      >
-        {layers.map((layer, i) => {
-          const isHovered = hoveredLayer === i;
-          const baseOffset = i * 50;
-          const hoverOffset = isHovered ? -10 : 0;
+    <div className={`relative h-[500px] w-full max-w-xl mx-auto transition-all duration-1000 ${isVisible ? 'opacity-100' : 'opacity-0'}`}>
+      {/* Frame */}
+      <div className="absolute -inset-2 border border-slate-800/50 rounded-lg" />
+      <div className="absolute -inset-px border border-cyan-400/20 rounded-lg" />
 
-          return (
-            <div
-              key={layer.name}
-              className={`absolute left-0 right-0 h-12 rounded-lg border transition-all duration-500 cursor-pointer ${
-                isVisible ? 'opacity-100' : 'opacity-0'
-              } ${
-                isHovered
-                  ? 'border-cyan-400/50 shadow-[0_0_20px_rgba(0,255,255,0.2)]'
-                  : 'border-slate-700/50'
-              }`}
-              style={{
-                transitionDelay: `${i * 100}ms`,
-                bottom: `${baseOffset}px`,
-                transform: `translateZ(${i * 10}px) translateY(${hoverOffset}px)`,
-                background: `linear-gradient(135deg, ${layer.color.split(' ')[0].replace('from-', '')}, ${layer.color.split(' ')[1].replace('to-', '')})`,
-                backgroundColor: 'rgba(15, 23, 42, 0.8)',
-              }}
-              onMouseEnter={() => setHoveredLayer(i)}
-              onMouseLeave={() => setHoveredLayer(null)}
-            >
-              <div className="absolute inset-0 flex items-center px-4">
-                <span
-                  className={`text-xs font-mono uppercase tracking-wider transition-colors duration-300 ${
-                    isHovered ? 'text-cyan-400' : 'text-slate-400'
-                  }`}
-                >
-                  {layer.name}
-                </span>
-              </div>
+      {/* Main video container */}
+      <div className="relative w-full h-full rounded-lg overflow-hidden bg-slate-900">
+        {isMounted && (
+          <video
+            ref={videoRef}
+            className="absolute inset-0 w-full h-full object-cover"
+            src="https://videos.pexels.com/video-files/7579564/7579564-uhd_2732_1440_25fps.mp4"
+            muted
+            loop
+            playsInline
+          />
+        )}
 
-              {/* Connection lines */}
-              {i < layers.length - 1 && (
-                <div className="absolute -bottom-[38px] left-1/2 w-px h-[38px] bg-gradient-to-b from-cyan-400/30 to-transparent" />
-              )}
+        {/* Overlay gradients */}
+        <div className="absolute inset-0 bg-gradient-to-t from-[#04060a] via-transparent to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-cyan-400/5 to-transparent" />
+        <div className="absolute inset-0 bg-[#04060a]/30" />
 
-              {/* Glow on hover */}
-              {isHovered && (
-                <div className="absolute inset-0 rounded-lg bg-gradient-to-r from-cyan-400/5 to-transparent" />
-              )}
-            </div>
-          );
-        })}
+        {/* Scan line effect */}
+        <div
+          className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-400/50 to-transparent pointer-events-none"
+          style={{ animation: 'scan-down 3s linear infinite' }}
+        />
 
-        {/* Decorative data flow particles */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {isVisible && [...Array(5)].map((_, i) => (
-            <div
-              key={i}
-              className="absolute w-1 h-1 bg-cyan-400/60 rounded-full"
-              style={{
-                left: `${20 + i * 15}%`,
-                animation: `flow-up ${2 + i * 0.5}s ease-in-out infinite`,
-                animationDelay: `${i * 0.4}s`,
-              }}
-            />
-          ))}
+        {/* Label */}
+        <div className="absolute bottom-4 left-4 right-4">
+          <div className="flex items-center gap-2">
+            <div className="w-1.5 h-1.5 bg-cyan-400 rounded-full animate-pulse" style={{ boxShadow: '0 0 8px rgba(0,255,255,0.6)' }} />
+            <span className="text-cyan-400 text-xs font-mono uppercase tracking-wider">
+              Live Platform
+            </span>
+          </div>
         </div>
       </div>
 
+      {/* Corner accents */}
+      <div className="absolute -top-1 -left-1 w-6 h-6 border-t border-l border-cyan-400/50" />
+      <div className="absolute -top-1 -right-1 w-6 h-6 border-t border-r border-cyan-400/50" />
+      <div className="absolute -bottom-1 -left-1 w-6 h-6 border-b border-l border-cyan-400/50" />
+      <div className="absolute -bottom-1 -right-1 w-6 h-6 border-b border-r border-cyan-400/50" />
+
       <style jsx>{`
-        @keyframes flow-up {
-          0% { bottom: 0; opacity: 0; }
-          20% { opacity: 1; }
-          80% { opacity: 1; }
-          100% { bottom: 100%; opacity: 0; }
+        @keyframes scan-down {
+          0% { top: 0; opacity: 0; }
+          10% { opacity: 1; }
+          90% { opacity: 1; }
+          100% { top: 100%; opacity: 0; }
         }
       `}</style>
     </div>
@@ -125,6 +112,7 @@ function ArchitectureDiagram({ isVisible }) {
 // Capability card
 function CapabilityCard({ capability, index, isVisible }) {
   const [isHovered, setIsHovered] = useState(false);
+  const Icon = capability.icon;
 
   return (
     <div
@@ -150,11 +138,16 @@ function CapabilityCard({ capability, index, isVisible }) {
       />
 
       <div className="relative z-10">
-        {/* Header */}
+        {/* Header with icon */}
         <div className="flex items-start justify-between mb-3">
-          <h3 className={`text-base font-medium transition-colors duration-300 ${isHovered ? 'text-cyan-400' : 'text-white'}`}>
-            {capability.title}
-          </h3>
+          <div className="flex items-center gap-3">
+            <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-all duration-300 ${isHovered ? 'bg-cyan-400/20' : 'bg-slate-800/50'}`}>
+              <Icon className={`w-5 h-5 transition-colors duration-300 ${isHovered ? 'text-cyan-400' : 'text-slate-400'}`} strokeWidth={1.5} />
+            </div>
+            <h4 className={`text-base font-medium uppercase tracking-wide transition-colors duration-300 ${isHovered ? 'text-cyan-400' : 'text-white'}`}>
+              {capability.title}
+            </h4>
+          </div>
           <span className={`text-xs font-mono transition-colors duration-300 ${isHovered ? 'text-cyan-400' : 'text-slate-600'}`}>
             {String(index + 1).padStart(2, '0')}
           </span>
@@ -203,7 +196,7 @@ export default function InfrastructureFold() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden">
+    <section id="platform" ref={sectionRef} className="relative py-32 overflow-hidden">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f14] via-[#050709] to-[#0b0f14]" />
 
@@ -265,7 +258,7 @@ export default function InfrastructureFold() {
               isVisible ? 'opacity-100 translate-x-0' : 'opacity-0 -translate-x-12'
             }`}
           >
-            <ArchitectureDiagram isVisible={isVisible} />
+            <VideoShowcase isVisible={isVisible} />
           </div>
 
           {/* Right: Capabilities grid */}
@@ -283,15 +276,21 @@ export default function InfrastructureFold() {
           }`}
         >
           {[
-            { value: '50+', label: 'Video Courses' },
-            { value: '100+', label: 'Expert Webinars' },
-            { value: '24/7', label: 'Platform Access' },
-          ].map((stat, i) => (
-            <div key={i} className="text-center">
-              <div className="text-2xl md:text-3xl font-light text-white mb-1">{stat.value}</div>
-              <div className="text-xs text-slate-500 uppercase tracking-wider">{stat.label}</div>
-            </div>
-          ))}
+            { value: '50+', label: 'Video Courses', icon: PlayCircle },
+            { value: '100+', label: 'Expert Webinars', icon: Video },
+            { value: '24/7', label: 'Platform Access', icon: Wifi },
+          ].map((stat, i) => {
+            const StatIcon = stat.icon;
+            return (
+              <div key={i} className="text-center group">
+                <div className="flex justify-center mb-2">
+                  <StatIcon className="w-5 h-5 text-cyan-400/60 group-hover:text-cyan-400 transition-colors duration-300" strokeWidth={1.5} />
+                </div>
+                <div className="text-2xl md:text-3xl font-light text-white mb-1">{stat.value}</div>
+                <div className="text-xs text-slate-500 uppercase tracking-wider">{stat.label}</div>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,37 +1,44 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { Compass, TrendingUp, PiggyBank, Presentation, BookOpen, Users } from 'lucide-react';
 
 const roles = [
   {
     title: 'Beginner Traders',
     description: 'Learn the fundamentals with AI guidance. Ask questions, get explanations, and build confidence before you invest.',
     useCase: 'Educational resources and guided learning paths',
+    icon: Compass,
   },
   {
     title: 'Active Traders',
     description: 'Real-time signals and AI-powered research to identify opportunities faster. Stay ahead of the market.',
     useCase: 'Advanced analytics and custom alerts',
+    icon: TrendingUp,
   },
   {
     title: 'Long-Term Investors',
     description: 'Deep fundamental analysis and portfolio insights. Make informed decisions for your financial future.',
     useCase: 'Portfolio tracking and performance analytics',
+    icon: PiggyBank,
   },
   {
     title: 'Educators',
     description: 'Create and share courses, host webinars, and build your following. Monetize your trading expertise.',
     useCase: 'Content creation tools and community features',
+    icon: Presentation,
   },
   {
     title: 'Students',
     description: 'Access world-class trading education from proven experts. Learn strategies that work in real markets.',
     useCase: 'On-demand courses and live learning sessions',
+    icon: BookOpen,
   },
   {
     title: 'Community Members',
     description: 'Connect with like-minded traders. Share ideas, discuss strategies, and grow together.',
     useCase: 'Discussion forums and social trading features',
+    icon: Users,
   },
 ];
 
@@ -70,6 +77,7 @@ function LogoMarquee({ isVisible }) {
 // Role card component
 function RoleCard({ role, index, isVisible }) {
   const [isHovered, setIsHovered] = useState(false);
+  const Icon = role.icon;
 
   return (
     <div
@@ -85,13 +93,13 @@ function RoleCard({ role, index, isVisible }) {
         {String(index + 1).padStart(2, '0')}
       </div>
 
-      {/* Icon placeholder */}
+      {/* Icon */}
       <div
-        className={`w-8 h-8 mb-4 border flex items-center justify-center transition-all duration-300 ${
-          isHovered ? 'border-cyan-400/50 bg-cyan-400/5' : 'border-slate-700'
+        className={`w-10 h-10 mb-4 rounded-lg flex items-center justify-center transition-all duration-300 ${
+          isHovered ? 'bg-cyan-400/20' : 'bg-slate-800/50'
         }`}
       >
-        <div className={`w-2 h-2 transition-colors duration-300 ${isHovered ? 'bg-cyan-400' : 'bg-slate-600'}`} />
+        <Icon className={`w-5 h-5 transition-colors duration-300 ${isHovered ? 'text-cyan-400' : 'text-slate-500'}`} strokeWidth={1.5} />
       </div>
 
       {/* Title */}
@@ -141,7 +149,7 @@ export default function ValidationFold() {
   }, []);
 
   return (
-    <section ref={sectionRef} className="relative py-32 overflow-hidden noise-overlay">
+    <section id="who-its-for" ref={sectionRef} className="relative py-32 overflow-hidden noise-overlay">
       {/* Background */}
       <div className="absolute inset-0 bg-gradient-to-b from-[#0b0f14] via-[#07090c] to-[#0b0f14]" />
 

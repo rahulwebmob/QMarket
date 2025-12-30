@@ -2,6 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 import Logo from '../Logo';
+import { Play, Calendar, Lock, FileText, HelpCircle, Activity } from 'lucide-react';
 
 export default function FinalCTAFold() {
   const [isVisible, setIsVisible] = useState(false);
@@ -146,14 +147,18 @@ export default function FinalCTAFold() {
               <div className="absolute bottom-0 left-0 w-3 h-3 border-b-2 border-l-2 border-cyan-400/80 transition-all duration-500 group-hover:w-4 group-hover:h-4" />
               <div className="absolute bottom-0 right-0 w-3 h-3 border-b-2 border-r-2 border-cyan-400/80 transition-all duration-500 group-hover:w-4 group-hover:h-4" />
 
-              <span className="relative z-10 text-cyan-400 font-medium tracking-wide transition-all duration-300 group-hover:text-cyan-300">
+              <span className="relative z-10 text-cyan-400 font-medium tracking-wide transition-all duration-300 group-hover:text-cyan-300 flex items-center gap-2">
+                <Play className="w-4 h-4" strokeWidth={2} />
                 Start Your 7-Day Free Trial
               </span>
             </button>
 
             {/* Secondary CTA */}
             <button className="group px-10 py-5 text-slate-500 font-medium border border-slate-800 transition-all duration-500 hover:text-slate-300 hover:border-slate-600 hover:bg-slate-800/20">
-              <span className="tracking-wide">Schedule a Demo</span>
+              <span className="tracking-wide flex items-center gap-2">
+                <Calendar className="w-4 h-4" strokeWidth={2} />
+                Schedule a Demo
+              </span>
             </button>
           </div>
 
@@ -191,23 +196,23 @@ export default function FinalCTAFold() {
 
             {/* Center: Links */}
             <div className="flex items-center gap-8">
-              <a href="#" className="text-slate-600 text-sm hover:text-slate-400 transition-colors duration-300">
+              <a href="#" className="text-slate-600 text-sm hover:text-slate-400 transition-colors duration-300 flex items-center gap-1.5">
+                <Lock className="w-3.5 h-3.5" strokeWidth={1.5} />
                 Privacy
               </a>
-              <a href="#" className="text-slate-600 text-sm hover:text-slate-400 transition-colors duration-300">
+              <a href="#" className="text-slate-600 text-sm hover:text-slate-400 transition-colors duration-300 flex items-center gap-1.5">
+                <FileText className="w-3.5 h-3.5" strokeWidth={1.5} />
                 Terms
               </a>
-              <a href="#" className="text-slate-600 text-sm hover:text-slate-400 transition-colors duration-300">
+              <a href="#" className="text-slate-600 text-sm hover:text-slate-400 transition-colors duration-300 flex items-center gap-1.5">
+                <HelpCircle className="w-3.5 h-3.5" strokeWidth={1.5} />
                 Support
               </a>
             </div>
 
             {/* Right: Status */}
             <div className="flex items-center gap-2">
-              <div className="relative">
-                <div className="w-2 h-2 bg-emerald-500 rounded-full" />
-                <div className="absolute inset-0 w-2 h-2 bg-emerald-500 rounded-full animate-ping opacity-50" />
-              </div>
+              <Activity className="w-4 h-4 text-emerald-500" strokeWidth={2} />
               <span className="text-slate-600 text-sm">All systems operational</span>
             </div>
           </div>

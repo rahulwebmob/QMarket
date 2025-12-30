@@ -1,6 +1,8 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
+import { Eye, ShieldCheck, Building2 } from 'lucide-react';
 
 export default function FounderFold() {
   const [isVisible, setIsVisible] = useState(false);
@@ -82,51 +84,59 @@ export default function FounderFold() {
             }`}
           >
             <div className="relative max-w-sm mx-auto">
-              {/* Cinematic frame */}
-              <div className="relative aspect-square">
-                {/* Outer frame */}
-                <div className="absolute inset-0 border border-slate-800/50" />
-                <div className="absolute inset-4 border border-slate-700/30" />
+              {/* Cinematic frame with founder image */}
+              <div className="relative aspect-[3/4]">
+                {/* Outer decorative frame */}
+                <div className="absolute -inset-3 border border-slate-800/30" />
+                <div className="absolute -inset-1 border border-cyan-400/10" />
 
-                {/* Light mask effect */}
-                <div
-                  className="absolute inset-0"
-                  style={{
-                    background: 'linear-gradient(135deg, rgba(0,255,255,0.03) 0%, transparent 40%, transparent 60%, rgba(0,0,0,0.3) 100%)',
-                  }}
-                />
+                {/* Main image container */}
+                <div className="relative w-full h-full overflow-hidden bg-gradient-to-b from-slate-900 to-[#04060a]">
+                  {/* Founder Image */}
+                  <Image
+                    src="/StevenE.Orr.webp"
+                    alt="Steven E. Orr - Founder of Quasar Markets"
+                    fill
+                    className="object-cover object-top grayscale hover:grayscale-0 transition-all duration-700"
+                    sizes="(max-width: 768px) 100vw, 400px"
+                  />
 
-                {/* Inner glow */}
-                <div className="absolute inset-8 border border-cyan-400/10 bg-[#04060a]/80" />
+                  {/* Overlay gradient for cinematic effect */}
+                  <div
+                    className="absolute inset-0 pointer-events-none"
+                    style={{
+                      background: 'linear-gradient(180deg, transparent 0%, transparent 60%, rgba(4,6,10,0.9) 100%)',
+                    }}
+                  />
 
-                {/* Founder initials */}
-                <div className="absolute inset-0 flex items-center justify-center">
-                  <div className="text-center">
-                    <div
-                      className="w-28 h-28 mx-auto mb-6 border border-slate-700/50 flex items-center justify-center relative overflow-hidden"
-                      style={{
-                        background: 'linear-gradient(180deg, rgba(0,255,255,0.02) 0%, transparent 50%)',
-                      }}
-                    >
-                      {/* Animated scan line */}
-                      <div
-                        className="absolute w-full h-px bg-cyan-400/20"
-                        style={{
-                          animation: 'scan-line 4s linear infinite',
-                        }}
-                      />
-                      <span className="text-5xl font-extralight text-slate-500 tracking-wider">SO</span>
-                    </div>
-                    <div className="text-white font-medium text-lg">Steven E. Orr</div>
-                    <div className="text-sm text-slate-500 mt-1">Founder</div>
-                  </div>
+                  {/* Cyan accent glow */}
+                  <div
+                    className="absolute inset-0 pointer-events-none opacity-30"
+                    style={{
+                      background: 'linear-gradient(135deg, rgba(0,255,255,0.1) 0%, transparent 50%)',
+                    }}
+                  />
+
+                  {/* Animated scan line */}
+                  <div
+                    className="absolute inset-x-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent pointer-events-none"
+                    style={{
+                      animation: 'scan-line 4s linear infinite',
+                    }}
+                  />
+                </div>
+
+                {/* Name overlay at bottom */}
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-center">
+                  <div className="text-white font-medium text-lg">Steven E. Orr</div>
+                  <div className="text-sm text-cyan-400/70 mt-1">Founder & CEO</div>
                 </div>
 
                 {/* Corner accents */}
-                <div className="absolute top-0 left-0 w-6 h-6 border-t-2 border-l-2 border-cyan-400/30" />
-                <div className="absolute top-0 right-0 w-6 h-6 border-t-2 border-r-2 border-cyan-400/30" />
-                <div className="absolute bottom-0 left-0 w-6 h-6 border-b-2 border-l-2 border-cyan-400/30" />
-                <div className="absolute bottom-0 right-0 w-6 h-6 border-b-2 border-r-2 border-cyan-400/30" />
+                <div className="absolute -top-1 -left-1 w-8 h-8 border-t-2 border-l-2 border-cyan-400/50" />
+                <div className="absolute -top-1 -right-1 w-8 h-8 border-t-2 border-r-2 border-cyan-400/50" />
+                <div className="absolute -bottom-1 -left-1 w-8 h-8 border-b-2 border-l-2 border-cyan-400/50" />
+                <div className="absolute -bottom-1 -right-1 w-8 h-8 border-b-2 border-r-2 border-cyan-400/50" />
               </div>
             </div>
           </div>
@@ -173,15 +183,24 @@ export default function FounderFold() {
               }`}
             >
               <div className="grid grid-cols-3 gap-6">
-                {['Clarity over complexity', 'Verification over velocity', 'Infrastructure over application'].map((principle, i) => (
-                  <div
-                    key={i}
-                    className="text-center group"
-                  >
-                    <div className="w-1 h-1 bg-slate-600 group-hover:bg-cyan-400/60 mx-auto mb-3 transition-colors duration-300" />
-                    <div className="text-sm text-slate-500 group-hover:text-slate-400 transition-colors duration-300">{principle}</div>
-                  </div>
-                ))}
+                {[
+                  { text: 'Clarity over complexity', icon: Eye },
+                  { text: 'Verification over velocity', icon: ShieldCheck },
+                  { text: 'Infrastructure over application', icon: Building2 },
+                ].map((principle, i) => {
+                  const PrincipleIcon = principle.icon;
+                  return (
+                    <div
+                      key={i}
+                      className="text-center group"
+                    >
+                      <div className="flex justify-center mb-3">
+                        <PrincipleIcon className="w-5 h-5 text-slate-600 group-hover:text-cyan-400 transition-colors duration-300" strokeWidth={1.5} />
+                      </div>
+                      <div className="text-sm text-slate-500 group-hover:text-slate-400 transition-colors duration-300">{principle.text}</div>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           </div>
